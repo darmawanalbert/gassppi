@@ -2,12 +2,15 @@ import numpy as np
 
 from benchmark.dbd_sanity_test import dbd_sanity_test
 
-def run_grid_search(pdb_id_list, templates_dict):
+def run_grid_search(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict):
     """Run Grid Search
 
     Parameters:
     pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark 5
     templates_dict (dict{pdb_id: list[Residue]}): Dictionary of PPI templates for each PDB ID
+    dbd_path (str): Absolute path to access the PDB file
+    pdb_parser (Bio.PDB.PDBParser.PDBParser): Bio.PDB Parser
+    lha_dict (dict{residue_name: atom_name}): Corresponding Last Heavy Atom for each amino acids
 
     Returns:
     None
@@ -43,7 +46,7 @@ def run_grid_search(pdb_id_list, templates_dict):
                     for tournament_size in tournament_size_list:
                         for number_of_tournament in number_of_tournament_list:
                             print("Running sanity test with population_size:", population_size, ", number_of_generations:", number_of_generations, ", crossover_probability:", crossover_probability, ", mutation_probability:", mutation_probability, ", tournament_size:", tournament_size, ", number_of_tournament:", number_of_tournament)
-                            _, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list = dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=population_size, number_of_generations=number_of_generations, crossover_probability=crossover_probability, mutation_probability=mutation_probability, tournament_size=tournament_size, number_of_tournament=number_of_tournament)
+                            _, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list = dbd_sanity_test(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=population_size, number_of_generations=number_of_generations, crossover_probability=crossover_probability, mutation_probability=mutation_probability, tournament_size=tournament_size, number_of_tournament=number_of_tournament)
                             avg_auc_roc = np.mean(auc_roc_list)
                             print("Mean AUC-ROC:", avg_auc_roc)
                             if avg_auc_roc > optimal_auc_roc:

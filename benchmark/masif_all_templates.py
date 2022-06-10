@@ -6,7 +6,7 @@ from core.gassppi import gass_ppi
 from utility.print_interface_info import print_interface_info
 from utility.load_pdb import load_pdb
 
-def masif_all_templates(pdb_id_list, templates_dict, verbose=False):
+def masif_all_templates(pdb_id_list, templates_dict, masif_path, pdb_parser, lha_dict, verbose=False):
     """MaSIF All Templates
     Given a list of PDB ID available in MaSIF Dataset and precomputed PPI templates,
     execute GASS-PPI on each protein complexes using all other templates
@@ -14,17 +14,12 @@ def masif_all_templates(pdb_id_list, templates_dict, verbose=False):
     Parameters:
     pdb_id_list (list[str]): List of PDB ID available in MaSIF Dataset
     templates_dict (dict{pdb_id: list[Residue]}): Dictionary of PPI templates for each PDB ID
+    masif_path (str): Absolute path to access the PDB file
+    pdb_parser (Bio.PDB.PDBParser.PDBParser): Bio.PDB Parser
+    lha_dict (dict{residue_name: atom_name}): Corresponding Last Heavy Atom for each amino acids
     verbose (bool): True for additional logs, False otherwise
 
     Returns:
-    list[int]: Individual ranking list
-    list[float]: List of precision score
-    list[float]: List of recall score
-    list[float]: List of AUC-ROC score
-    list[float]: List of AUC-PR score
-    list[float]: List of MCC score
-    list[float]: List of Specificity score
-    list[float]: List of NPV score
 
     """
     # Initialise returned list
@@ -80,6 +75,8 @@ def masif_all_templates(pdb_id_list, templates_dict, verbose=False):
 
     # Additional logs for development purposes
     if verbose:
+        print("Individual Ranking List")
+        print(individual_ranking_list)
         print("Mean Precision: ", np.mean(precision_list))
         print("Mean Recall: ", np.mean(recall_list))
         print("Mean AUC-ROC Score: ", np.mean(auc_roc_list))
@@ -87,5 +84,3 @@ def masif_all_templates(pdb_id_list, templates_dict, verbose=False):
         print("Mean MCC: ", np.mean(mcc_list))
         print("Mean Specificity: ", np.mean(specificity_list))
         print("Mean NPV: ", np.mean(npv_list))
-
-    return (individual_ranking_list, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list)

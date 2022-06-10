@@ -5,7 +5,7 @@ from benchmark.evaluate_ppi_population import evaluate_ppi_population
 from core.gassppi import gass_ppi
 from core.validation import can_run_gass_ppi
 
-def dbd_all_templates(pdb_id_list, templates_dict, verbose=False):
+def dbd_all_templates(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict, verbose=False):
     """DBD All Templates
     Given a list of PDB ID available in Docking Benchmark Dataset and precomputed PPI templates,
     execute GASS-PPI on each protein complexes using all other templates
@@ -13,17 +13,12 @@ def dbd_all_templates(pdb_id_list, templates_dict, verbose=False):
     Parameters:
     pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark Dataset
     templates_dict (dict{pdb_id: list[Residue]}): Dictionary of PPI templates for each PDB ID
+    dbd_path (str): Absolute path to access the PDB file
+    pdb_parser (Bio.PDB.PDBParser.PDBParser): Bio.PDB Parser
+    lha_dict (dict{residue_name: atom_name}): Corresponding Last Heavy Atom for each amino acids
     verbose (bool): True for additional logs, False otherwise
 
     Returns:
-    list[int]: Individual ranking list
-    list[float]: List of precision score
-    list[float]: List of recall score
-    list[float]: List of AUC-ROC score
-    list[float]: List of AUC-PR score
-    list[float]: List of MCC score
-    list[float]: List of Specificity score
-    list[float]: List of NPV score
 
     """
     # Initialise returned list
@@ -40,7 +35,7 @@ def dbd_all_templates(pdb_id_list, templates_dict, verbose=False):
     for pdb_id in pdb_id_list:
         for monomer_pdb_id in [pdb_id + "_l_u", pdb_id + "_r_u"]:
             # Step 1: Load the monomeric protein structure and PPI template
-            monomer_pdb_structure = load_pdb(monomer_pdb_id, dbd5_path, pdb_parser, lha_dict, "lha")
+            monomer_pdb_structure = load_pdb(monomer_pdb_id, dbd_path, pdb_parser, lha_dict, "lha")
             aggregated_population_list = []
 
             if verbose:
@@ -80,6 +75,8 @@ def dbd_all_templates(pdb_id_list, templates_dict, verbose=False):
 
     # Additional logs for development purposes
     if verbose:
+        print("Individual Ranking List")
+        print(individual_ranking_list)
         print("Mean Precision: ", np.mean(precision_list))
         print("Mean Recall: ", np.mean(recall_list))
         print("Mean AUC-ROC Score: ", np.mean(auc_roc_list))
@@ -87,5 +84,3 @@ def dbd_all_templates(pdb_id_list, templates_dict, verbose=False):
         print("Mean MCC: ", np.mean(mcc_list))
         print("Mean Specificity: ", np.mean(specificity_list))
         print("Mean NPV: ", np.mean(npv_list))
-
-    return (individual_ranking_list, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list)

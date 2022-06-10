@@ -5,7 +5,7 @@ from core.validation import can_run_gass_ppi
 from core.gassppi import gass_ppi
 from utility.load_pdb import load_pdb
 
-def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=300, number_of_generations=300, crossover_probability=0.5, mutation_probability=0.7, tournament_size=3, number_of_tournament=50):
+def dbd_sanity_test(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=300, number_of_generations=300, crossover_probability=0.5, mutation_probability=0.7, tournament_size=3, number_of_tournament=50):
     """DBD Sanity Test
     Given a list of PDB ID available in Docking Benchmark Dataset and precomputed PPI templates,
     execute GASS-PPI on each protein complexes using its own template
@@ -13,6 +13,9 @@ def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False
     Parameters:
     pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark 5
     templates_dict (dict{pdb_id: list[Residue]}): Dictionary of PPI templates for each PDB ID
+    dbd_path (str): Absolute path to access the PDB file
+    pdb_parser (Bio.PDB.PDBParser.PDBParser): Bio.PDB Parser
+    lha_dict (dict{residue_name: atom_name}): Corresponding Last Heavy Atom for each amino acids
     ranking_size (int): Number of individuals to be evaluated (from individual #0 to #ranking_size-1)
     verbose (bool): True for additional logs, False otherwise
     iteration_per_protein (int): Number of iteration performed for each protein (1 by default, 30 for statistical confidence)
@@ -24,14 +27,6 @@ def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False
     number_of_tournament (int): Number of tournaments to be performed
 
     Returns:
-    list[int]: Individual ranking list
-    list[float]: List of precision score
-    list[float]: List of recall score
-    list[float]: List of AUC-ROC score
-    list[float]: List of AUC-PR score
-    list[float]: List of MCC score
-    list[float]: List of Specificity score
-    list[float]: List of NPV score
 
     """
     # Initialise returned list
@@ -48,7 +43,7 @@ def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False
     for pdb_id in pdb_id_list:
         for monomer_pdb_id in [pdb_id + "_l_u", pdb_id + "_r_u"]:
             # Step 1: Load the monomeric protein structure and PPI template
-            monomer_pdb_structure = load_pdb(monomer_pdb_id, dbd5_path, pdb_parser, lha_dict, "lha")
+            monomer_pdb_structure = load_pdb(monomer_pdb_id, dbd_path, pdb_parser, lha_dict, "lha")
             interface_template = templates_dict[monomer_pdb_id]
 
             for _ in range(iteration_per_protein):
@@ -85,6 +80,8 @@ def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False
 
     # Additional logs for development purposes
     if verbose:
+        print("Individual Ranking List")
+        print(individual_ranking_list)
         print("Mean Precision: ", np.mean(precision_list))
         print("Mean Recall: ", np.mean(recall_list))
         print("Mean AUC-ROC Score: ", np.mean(auc_roc_list))
@@ -92,5 +89,3 @@ def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False
         print("Mean MCC: ", np.mean(mcc_list))
         print("Mean Specificity: ", np.mean(specificity_list))
         print("Mean NPV: ", np.mean(npv_list))
-
-    return (individual_ranking_list, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list)
