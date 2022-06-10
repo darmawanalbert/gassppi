@@ -2,6 +2,7 @@ from Bio.PDB import *
 
 from utility.load_pdb import load_pdb
 from utility.load_ppi_templates import load_ppi_templates
+from utility.execute_with_elapsed_time import execute_with_elapsed_time
 from constant.directory_constant import dbd5_path, templates_path
 from constant.last_heavy_atom import lha_dict
 from constant.dbd5_dataset import dbd5_ox_list
@@ -36,8 +37,12 @@ dbd3_all_templates_5a_dict = {**dbd3_e_templates_5a_dict, **dbd3_a_templates_5a_
                       **dbd3_o_templates_5a_dict}
 print(len(dbd3_all_templates_5a_dict))
 
-sample_structure = load_pdb("1BVK_r_u", dbd5_path, pdb_parser, lha_dict, "lha")
 
 print("DBD5: Others, miscellaneous (OX)")
-_, _, _, _, _, _, _, _ = dbd_all_templates(dbd5_ox_list, dbd5_all_templates_5a_dict, verbose=True)
-print("\n\n")
+execute_with_elapsed_time(dbd_all_templates,
+                        pdb_id_list=dbd5_ox_list,
+                        templates_dict=dbd5_all_templates_5a_dict,
+                        dbd_path=dbd5_path,
+                        pdb_parser=pdb_parser,
+                        lha_dict=lha_dict,
+                        verbose=True)
