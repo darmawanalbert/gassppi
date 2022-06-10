@@ -1,5 +1,6 @@
 import numpy as np
 
+from utility.euclidean_distance import euclidean_distance
 
 def calculate_normalised_fitness_score(individual, interface_template):
     """Calculate Normalised Fitness Score

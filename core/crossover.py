@@ -1,3 +1,5 @@
+import random
+
 def crossover(individual_1, individual_2, crossover_probability):
     """Crossover
     Given two individuals, perform a single point crossover based on crossover probability

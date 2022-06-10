@@ -1,3 +1,5 @@
+from benchmark.evaluate_ppi import evaluate_ppi
+
 def evaluate_ppi_population(actual_interface, population_list, protein_structure, ranking_size=1):
     """Evaluate PPI Population
     Given a population of PPI produced by GASS-PPI method, evaluate n individual

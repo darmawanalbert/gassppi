@@ -1,10 +1,17 @@
+import numpy as np
+
+from benchmark.evaluate_ppi_population import evaluate_ppi_population
+from core.validation import can_run_gass_ppi
+from core.gassppi import gass_ppi
+from utility.load_pdb import load_pdb
+
 def dbd_sanity_test(pdb_id_list, templates_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=300, number_of_generations=300, crossover_probability=0.5, mutation_probability=0.7, tournament_size=3, number_of_tournament=50):
     """DBD Sanity Test
     Given a list of PDB ID available in Docking Benchmark Dataset and precomputed PPI templates,
     execute GASS-PPI on each protein complexes using its own template
 
     Parameters:
-    pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark 5 
+    pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark 5
     templates_dict (dict{pdb_id: list[Residue]}): Dictionary of PPI templates for each PDB ID
     ranking_size (int): Number of individuals to be evaluated (from individual #0 to #ranking_size-1)
     verbose (bool): True for additional logs, False otherwise

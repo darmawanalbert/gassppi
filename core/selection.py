@@ -1,3 +1,5 @@
+import random
+
 def deterministic_tournament_selection(population_list, tournament_size, number_of_tournament):
     """Deterministic Tournament Selection
     Perform deterministic tournament selection towards current population list

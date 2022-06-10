@@ -1,3 +1,5 @@
+from utility.euclidean_distance import euclidean_distance
+
 def get_actual_interface(residue_list_1, residue_list_2, distance_threshold=6.0):
     """Get Actual Interface
     Given one receptor structure and one ligand structure, infer its interfaces based on certain distance threshold

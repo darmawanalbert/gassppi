@@ -1,10 +1,15 @@
+import random
+
+from constant.amino_acid import amino_acid_list
+from utility.is_residue_in_interface import is_residue_in_interface
+
 def generate_initial_population(input_protein_structure, interface_template, population_size):
     """Generate Initial Population
     Given the input protein structure and its interface template, generate list
     of random individuals which constitutes the initial population.
 
     Each residue inside the individual needs to have the same residue_name compared to
-    the interface_template, but can have different residue_sequence_position or chain_name. 
+    the interface_template, but can have different residue_sequence_position or chain_name.
 
     Parameters:
     input_protein_structure (list[Residue]): List of Residues object which constitutes the input protein structure

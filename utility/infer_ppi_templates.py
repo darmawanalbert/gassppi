@@ -1,3 +1,6 @@
+from load_pdb import load_pdb
+from utility.get_actual_interface import get_actual_interface
+
 def infer_ppi_templates(pdb_id_list, pdb_directory_path, pdb_parser, lha_dict, reference_atom, distance_threshold):
     """Infer PPI Templates
     For each protein complex in the dataset, calculate and infer its PPI templates
@@ -6,7 +9,7 @@ def infer_ppi_templates(pdb_id_list, pdb_directory_path, pdb_parser, lha_dict, r
     pdb_id_list (list[str]): List of Protein Complex PDB ID to be processed
     pdb_directory_path (str): Absolute path to access the PDB file
     pdb_parser (Bio.PDB.PDBParser.PDBParser): Bio.PDB Parser
-    lha_dict (dict{residue_name: atom_name}): Corresponding Last Heavy Atom for each amino acids 
+    lha_dict (dict{residue_name: atom_name}): Corresponding Last Heavy Atom for each amino acids
     reference_atom (str): Reference atom used ("lha" or "ca")
     distance_threshold (float): The acceptable distance between a receptor's atom and a ligand's atom (in Angstrom unit)
 

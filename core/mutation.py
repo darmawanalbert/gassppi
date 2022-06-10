@@ -1,3 +1,7 @@
+import random
+
+from utility.is_residue_in_interface import is_residue_in_interface
+
 def mutation(input_protein_structure, individual, mutation_probability):
     """Mutation
     Given an individual, perform a single point mutations based on mutation probability.

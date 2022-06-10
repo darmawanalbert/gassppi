@@ -1,3 +1,7 @@
+import json
+
+from model.Residue import Residue
+
 def load_ppi_templates(load_directory_path, file_name):
     """Load PPI Templates
     Using Python JSON library, load a JSON file which contains PPI templates dictionary
@@ -18,6 +22,6 @@ def load_ppi_templates(load_directory_path, file_name):
         loaded_ppi_templates = json.load(fp)
 
     # Deserialized the loaded_ppi_templates
-    deserialized_ppi_templates = { pdb_id: [Residue(x['residue_name'], x['residue_sequence_position'], x['chain_name'], x['atom_name'], x['atom_coordinates'], x['residue_sasa'], x['residue_depth']) for x in residue_list] 
+    deserialized_ppi_templates = { pdb_id: [Residue(x['residue_name'], x['residue_sequence_position'], x['chain_name'], x['atom_name'], x['atom_coordinates'], x['residue_sasa'], x['residue_depth']) for x in residue_list]
                                     for pdb_id, residue_list in loaded_ppi_templates.items() }
     return deserialized_ppi_templates

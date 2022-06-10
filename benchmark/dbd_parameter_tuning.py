@@ -1,8 +1,12 @@
+import numpy as np
+
+from benchmark.dbd_sanity_test import dbd_sanity_test
+
 def run_grid_search(pdb_id_list, templates_dict):
     """Run Grid Search
 
     Parameters:
-    pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark 5 
+    pdb_id_list (list[str]): List of PDB ID available in Docking Benchmark 5
     templates_dict (dict{pdb_id: list[Residue]}): Dictionary of PPI templates for each PDB ID
 
     Returns:

@@ -1,3 +1,7 @@
+from sklearn.metrics import roc_auc_score, average_precision_score, precision_score, recall_score, matthews_corrcoef, confusion_matrix
+
+from utility.is_residue_in_interface import is_residue_in_interface
+
 def evaluate_ppi(actual_interface, predicted_interface, protein_structure):
     """Evaluate PPI
     Given the actual interface and its predicted interface, calculate some performance metrics.
