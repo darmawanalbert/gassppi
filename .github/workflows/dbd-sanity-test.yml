@@ -1,0 +1,19 @@
+name: DBD Sanity Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout to the repository
+      uses: actions/checkout@v3
+    - name: Setup Python environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    - name: Run the sanity test executables
+      run: python run.py
