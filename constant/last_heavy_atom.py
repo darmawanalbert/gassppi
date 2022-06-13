@@ -1,0 +1,23 @@
+# Last Heavy Atom mapping
+lha_dict = {
+    "GLY": "CA",
+    "ALA": "CB",
+    "GLN": "CD",
+    "GLU": "CD",
+    "ILE": "CD1",
+    "LEU": "CD1",
+    "MET": "CE",
+    "HIS": "CE1",
+    "ASN": "CG",
+    "ASP": "CG",
+    "PRO": "CG",
+    "VAL": "CG1",
+    "THR": "CG2",
+    "TRP": "CH2",
+    "ARG": "CZ",
+    "PHE": "CZ",
+    "LYS": "NZ",
+    "SER": "OG",
+    "TYR": "OH",
+    "CYS": "SG",
+}
