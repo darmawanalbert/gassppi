@@ -20,8 +20,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Append MSMS path to PATH environment variables
+      run: echo "$GITHUB_WORKSPACE/msms" >> $GITHUB_PATH
+    - name: Inspect current path
       run: |
-        echo "$GITHUB_WORKSPACE/msms" >> $PATH
         echo $GITHUB_PATH
         echo $PATH
         msms
