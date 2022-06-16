@@ -21,7 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Append MSMS path to PATH environment variables
       run: |
-        echo "$GITHUB_WORKSPACE/msms/msms" >> $GITHUB_PATH
+        echo "$GITHUB_WORKSPACE/msms" >> $GITHUB_PATH
         msms
     - name: Run the sanity test executables
       run: python run.py
