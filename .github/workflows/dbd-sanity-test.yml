@@ -23,10 +23,5 @@ jobs:
       run: |
         chmod 755 "$GITHUB_WORKSPACE/msms/msms"
         echo "$GITHUB_WORKSPACE/msms" >> $GITHUB_PATH
-    - name: Test MSMS
-      run: |
-        echo $GITHUB_PATH
-        echo $PATH
-        msms
     - name: Run the sanity test executables
       run: python run.py
