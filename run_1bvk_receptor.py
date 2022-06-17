@@ -23,6 +23,12 @@ protein_structure_1bvk_r_u = load_pdb("1BVK_r_u", dbd5_path, pdb_parser, lha_dic
 
 predicted_ppis = gass_ppi(input_protein_structure=protein_structure_1bvk_r_u,
                           interface_template=ppi_template_1bvk_r_u,
+                          population_size=400,
+                          number_of_generations=200,
+                          crossover_probability=0.9,
+                          mutation_probability=0.9,
+                          tournament_size=2,
+                          number_of_tournament=20,
                           verbose=True)
 
 # Script for PyMOL rendering

@@ -43,4 +43,12 @@ execute_with_elapsed_time(dbd_sanity_test,
                         dbd_path=dbd5_path,
                         pdb_parser=pdb_parser,
                         lha_dict=lha_dict,
-                        verbose=True)
+                        ranking_size=100,
+                        verbose=True,
+                        iteration_per_protein=1,
+                        population_size=400,
+                        number_of_generations=200,
+                        crossover_probability=0.9,
+                        mutation_probability=0.9,
+                        tournament_size=2,
+                        number_of_tournament=20)
