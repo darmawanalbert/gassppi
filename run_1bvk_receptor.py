@@ -1,4 +1,5 @@
 from Bio.PDB import *
+import warnings
 
 from core.gassppi import gass_ppi
 from utility.load_pdb import load_pdb
@@ -8,6 +9,8 @@ from utility.save_pymol_script_file import save_pymol_script
 from constant.directory_constant import dbd5_path, templates_path
 from constant.last_heavy_atom import lha_dict
 from constant.amino_acid import amino_acid_list
+
+warnings.filterwarnings("ignore")
 
 pdb_parser = PDBParser()
 

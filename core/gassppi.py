@@ -33,7 +33,6 @@ def gass_ppi(input_protein_structure, interface_template, population_size=300, n
     population_list_no_fitness = generate_initial_population(protein_structure, interface_template, population_size)
     population_list = [(individual, calculate_normalised_fitness_score(individual, interface_template)) for individual in population_list_no_fitness]
 
-    # Development Logs
     if verbose:
         save_current_generation("generation_0", population_list)
 
@@ -42,9 +41,12 @@ def gass_ppi(input_protein_structure, interface_template, population_size=300, n
         # Selection
         parent_list = deterministic_tournament_selection(population_list, tournament_size, number_of_tournament)
 
+        if verbose:
+            save_current_generation("parent_" + str(i+1), parent_list)
+
         for j in range(0, len(parent_list), 2):
             # Crossover
-            new_individual_1, new_individual_2 = crossover(list(population_list[j][0]), list(population_list[j+1][0]), crossover_probability)
+            new_individual_1, new_individual_2 = crossover(list(parent_list[j][0]), list(parent_list[j+1][0]), crossover_probability)
 
             # Mutation
             mutated_new_individual_1 = mutation(protein_structure, list(new_individual_1), mutation_probability)
