@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Development logs
+development-logs/
+
+# Generated PyMOL script
+pymol-script/
