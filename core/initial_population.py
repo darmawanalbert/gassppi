@@ -2,6 +2,7 @@ import random
 
 from constant.amino_acid import amino_acid_list
 from utility.is_residue_in_interface import is_residue_in_interface
+from utility.random_sampling import weighted_sample_without_replacement
 
 def generate_initial_population(input_protein_structure, interface_template, population_size):
     """Generate Initial Population
@@ -20,33 +21,42 @@ def generate_initial_population(input_protein_structure, interface_template, pop
     list[list[Residue]]: The initial population (list of individuals)
 
     """
+    rng = random.Random(10)
 
     # Split the input_protein_structure into 20 list (based on amino_acid_list)
     input_protein_dict= { x: [] for x in amino_acid_list }
+    weight_dict = { x: [] for x in amino_acid_list }
     for residue in input_protein_structure:
         input_protein_dict[residue.residue_name].append(residue)
+        weight_dict[residue.residue_name].append(1/residue.residue_depth)
+
+    # Map the index position of each interface residues onto a dictionary
+    # (based on amino_acid_list)
+    interface_residue_position_dict = { x: [] for x in amino_acid_list }
+    for i in range(len(interface_template)):
+        cur_residue = interface_template[i]
+        interface_residue_position_dict[cur_residue.residue_name].append(i)
 
     initial_population_list = []
     # Generate the initial population
     for _ in range(population_size):
         # Generate a random individual
-        random_individual = []
-        for residue in interface_template:
-            amino_acid_type = residue.residue_name
-            # Generate a random residue that aligns with the amino_acid_type
-            if len(input_protein_dict[amino_acid_type]) > 0:
-                random_residue_index = random.randrange(len(input_protein_dict[amino_acid_type]))
-                random_residue = input_protein_dict[amino_acid_type][random_residue_index]
-                # Ensure that the randomly picked residue is distinct inside the same individual
-                while is_residue_in_interface(random_residue, random_individual):
-                    random_residue_index = random.randrange(len(input_protein_dict[amino_acid_type]))
-                    random_residue = input_protein_dict[amino_acid_type][random_residue_index]
-            else:
-                # In case the protein structure doesn't contain the required amino_acid_type, select any random residue with any type
-                random_residue_index = random.randrange(len(input_protein_structure))
-                random_residue = input_protein_structure[random_residue_index]
+        random_individual_list = [None for _ in range(len(interface_template))]
+        for residue_type, index_list in interface_residue_position_dict.items():
+            if (len(index_list) > 0):
+                # Sampling per amino acid type (e.g. list of CYS)
+                residue_sample_list = list(weighted_sample_without_replacement(
+                    input_protein_dict[residue_type],
+                    weight_dict[residue_type],
+                    len(interface_residue_position_dict[residue_type]),
+                    rng
+                ))
+                # Add the random sampling result to the random individual
+                # adhering to the index from interface_residue_position_dict
+                for i in range(len(index_list)):
+                    random_individual_list[index_list[i]] = residue_sample_list[i]
 
-            random_individual.append(random_residue)
-        initial_population_list.append(random_individual)
+        # Add the individual to the initial population
+        initial_population_list.append(random_individual_list)
 
     return initial_population_list
