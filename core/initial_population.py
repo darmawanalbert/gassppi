@@ -1,7 +1,6 @@
 import random
 
 from constant.amino_acid import amino_acid_list
-from utility.is_residue_in_interface import is_residue_in_interface
 from utility.random_sampling import weighted_sample_without_replacement
 
 def generate_initial_population(input_protein_structure, interface_template, population_size):

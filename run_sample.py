@@ -39,12 +39,12 @@ sample_protein_structure = load_pdb(sample_pdb_id, dbd5_path, pdb_parser, lha_di
 
 predicted_ppis = gass_ppi(input_protein_structure=sample_protein_structure,
                           interface_template=sample_ppi_template,
-                          population_size=400,
-                          number_of_generations=400,
-                          crossover_probability=0.9,
-                          mutation_probability=0.9,
-                          tournament_size=2,
-                          number_of_tournament=20,
+                          population_size=300,
+                          number_of_generations=300,
+                          crossover_probability=0.5,
+                          mutation_probability=0.7,
+                          tournament_size=3,
+                          number_of_tournament=50,
                           verbose=True)
 
 # Script for PyMOL rendering
