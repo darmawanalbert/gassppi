@@ -1,4 +1,4 @@
-name: DBD Sanity Test
+name: DBD3 O Sanity Test
 
 on:
   pull_request:
@@ -24,4 +24,4 @@ jobs:
         chmod 755 "$GITHUB_WORKSPACE/msms/msms"
         echo "$GITHUB_WORKSPACE/msms" >> $GITHUB_PATH
     - name: Run the sanity test executables
-      run: python run.py
+      run: python run_dbd3_o_sanitytest.py

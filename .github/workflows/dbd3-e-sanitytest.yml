@@ -1,0 +1,27 @@
+name: DBD3 E Sanity Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout to the repository
+      uses: actions/checkout@v3
+    - name: Setup Python environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Setup MSMS
+      run: |
+        chmod 755 "$GITHUB_WORKSPACE/msms/msms"
+        echo "$GITHUB_WORKSPACE/msms" >> $GITHUB_PATH
+    - name: Run the sanity test executables
+      run: python run_dbd3_e_sanitytest.py

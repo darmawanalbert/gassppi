@@ -6,12 +6,12 @@ def deterministic_tournament_selection(population_list, tournament_size, number_
     to select parents (for generating new generations)
 
     Parameters:
-    population_list (list[(list[Residue], int)]): Current list of population
+    population_list (list[(list[Residue], float)]): Current list of population
     tournament_size (int): Hyperparameter to determine how many random individuals in each tournament
     number_of_tournament (int): Hyperparameter to determine how many tournaments to be performed
 
     Returns:
-    list[list[Residue]]: List of parents
+    list[(list[Residue], float)]: List of parents
 
     """
     random.shuffle(population_list)
