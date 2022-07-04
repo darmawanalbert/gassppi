@@ -1,10 +1,11 @@
 from core.initial_population import generate_initial_population
 from core.fitness import calculate_normalised_fitness_score
-from core.selection import deterministic_tournament_selection
+from core.selection import tournament_selection
 from core.mutation import mutation
 from core.crossover import crossover
 from utility.save_current_generation import save_current_generation
 from utility.draw_scatter import draw_scatter
+from constant.amino_acid import amino_acid_list
 
 def gass_ppi(input_protein_structure, interface_template, population_size=300, number_of_generations=300, crossover_probability=0.5, mutation_probability=0.7, tournament_size=3, number_of_tournament=50, verbose=False):
     """GASS-PPI Method
@@ -31,8 +32,22 @@ def gass_ppi(input_protein_structure, interface_template, population_size=300, n
     eps = 0.000001
     protein_structure = [residue for residue in input_protein_structure]
 
+    # From the given protein_structure, map it into a residue repository
+    # repository_dict contains 20 list (one for each amino acid types)
+    # Each list contains Residue objects
+    repository_dict= { x: [] for x in amino_acid_list }
+
+    # propensity_dict structure and order adheres to repository_dict
+    # Instead of containing Residue objects, it contains the interface propensity score
+    # Currently, it is defined as 1/residue_depth, but this can be adjusted in the future
+    propensity_dict = { x: [] for x in amino_acid_list }
+
+    for residue in protein_structure:
+        repository_dict[residue.residue_name].append(residue)
+        propensity_dict[residue.residue_name].append(1/residue.residue_depth)
+
     # Initial Population
-    population_list_no_fitness = generate_initial_population(protein_structure, interface_template, population_size)
+    population_list_no_fitness = generate_initial_population(repository_dict, propensity_dict, interface_template, population_size)
     population_list = [(individual, calculate_normalised_fitness_score(individual, interface_template)) for individual in population_list_no_fitness]
 
     if verbose:
@@ -41,7 +56,7 @@ def gass_ppi(input_protein_structure, interface_template, population_size=300, n
     # Evolutionary Steps
     for i in range(number_of_generations):
         # Selection
-        parent_list = deterministic_tournament_selection(population_list, tournament_size, number_of_tournament)
+        parent_list = tournament_selection(population_list, tournament_size, number_of_tournament)
 
         if verbose:
             save_current_generation(str(i+1).zfill(3) + "_parent", parent_list)
