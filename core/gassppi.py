@@ -66,8 +66,8 @@ def gass_ppi(input_protein_structure, interface_template, population_size=300, n
             new_individual_1, new_individual_2 = crossover(list(parent_list[j][0]), list(parent_list[j+1][0]), crossover_probability)
 
             # Mutation
-            mutated_new_individual_1 = mutation(repository_dict, propensity_dict, list(new_individual_1), mutation_probability)
-            mutated_new_individual_2 = mutation(repository_dict, propensity_dict, list(new_individual_2), mutation_probability)
+            mutated_new_individual_1 = mutation(protein_structure, list(new_individual_1), mutation_probability)
+            mutated_new_individual_2 = mutation(protein_structure, list(new_individual_2), mutation_probability)
 
             # Fitness Evaluation
             fitness_score_1 = calculate_normalised_fitness_score(mutated_new_individual_1, interface_template)
