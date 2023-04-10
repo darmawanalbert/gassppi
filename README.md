@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ```
 
-3. We use a module called [MSMS](https://ssbio.readthedocs.io/en/latest/instructions/msms.html), which is a required dependency to use [Bio.PDB.ResidueDepth module](https://biopython.org/docs/1.79/api/Bio.PDB.ResidueDepth.html). This repository contains a fork of `msms` module (under `/msms` directory), we only need to add this directory path (i.e., `[your_root_path]/gassppi/msms`) to the local machine's PATH environment variable.
+3. We use a module called [MSMS](https://ssbio.readthedocs.io/en/latest/instructions/msms.html), which is a required dependency to use [Bio.PDB.ResidueDepth module](https://biopython.org/docs/1.79/api/Bio.PDB.ResidueDepth.html). This repository contains a fork of `msms` module (under `msms/` directory), we only need to add this directory path (i.e., `[your_root_path]/gassppi/msms`) to the local machine's PATH environment variable.
 
 ## Run GASS-PPI scripts
 
@@ -40,11 +40,20 @@ python run_sample.py
 
 ## Datasets
 
+All datasets used to execute and benchmark GASS-PPI are stored inside the `data/` directory. This includes the original [.pdb](https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/introduction) and [.ply](http://paulbourke.net/dataformats/ply/) files that represents the protein structure, as well as the preprocessed PPI templates stored as `.json` files. List of [PDB ID](https://www.rcsb.org/docs/general-help/identifiers-in-pdb) for each dataset is stored inside the `constant/` directory as a Python list.
+
+There are two main datasets used in GASS-PPI, which are:
+1. Docking Benchmark Dataset (abbreviated as DBD). We used two versions:
+- DBD5: https://zlab.umassmed.edu/benchmark/benchmark5.0.html
+- DBD3: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2726780/
+
+2. MaSIF Dataset: https://github.com/lpdi-epfl/masif
+
 ## Contributors
 
 - [Albert Darmawan](https://github.com/darmawanalbert)
-- Douglas Pires
-- Sandro Carvalho Izidoro
+- [A/Prof Douglas E. V. Pires](https://orcid.org/0000-0002-3004-2119)
+- [Prof Sandro Carvalho Izidoro](https://orcid.org/0000-0001-5555-3321)
 
 ## Credits
 
