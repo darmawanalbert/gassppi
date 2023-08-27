@@ -30,12 +30,13 @@ python run_sample.py
 ## Directory Structure
 
     .
-    ├── benchmark                   #
-    ├── constant                    #
-    ├── core                        #
-    ├── data                        #
-    ├── model                       #
-    ├── utility                     #
+    ├── benchmark/                  # A set of utility functions to perform the benchmarking of GASS-PPI
+    ├── constant/                   # A set of constants e.g., List of PDBs in the dataset, Last Heavy Atom and Kyte-Doolittle mapping, etc
+    ├── core/                       # The main logic of GASS-PPI, including all components of the genetic algorithm
+    ├── data/                       # All .pdb, .ply, and .json files that constitutes the dataset
+    ├── model/                      # Residue/amino acid representation
+    ├── msms/                       # A fork of the MSMS module
+    ├── utility                     # A set of utility functions for miscellaneous purposes e.g., data visualisation, dataset preprocessing, etc
     └── README.md
 
 ## Datasets
