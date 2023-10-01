@@ -5,8 +5,8 @@ from core.gassppi import gass_ppi
 from core.validation import can_run_gass_ppi
 from utility.load_pdb import load_pdb
 
-def masif_sanity_test(pdb_id_list, templates_dict, masif_path, pdb_parser, lha_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=300, number_of_generations=300, crossover_probability=0.5, mutation_probability=0.7, tournament_size=3, number_of_tournament=50):
-    """MaSIF Sanity Test
+def masif_sanity_check(pdb_id_list, templates_dict, masif_path, pdb_parser, lha_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=300, number_of_generations=300, crossover_probability=0.5, mutation_probability=0.7, tournament_size=3, number_of_tournament=50):
+    """MaSIF Sanity Check
     Given a list of PDB ID available in MaSIF Dataset and precomputed PPI templates,
     execute GASS-PPI on each monomeric protein using its own template
 

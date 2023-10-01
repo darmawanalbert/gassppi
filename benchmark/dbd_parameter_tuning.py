@@ -1,6 +1,6 @@
 import numpy as np
 
-from benchmark.dbd_sanity_test import dbd_sanity_test
+from benchmark.dbd_sanity_check import dbd_sanity_check
 
 def run_grid_search(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict):
     """Run Grid Search
@@ -46,7 +46,7 @@ def run_grid_search(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict)
                     for tournament_size in tournament_size_list:
                         for number_of_tournament in number_of_tournament_list:
                             print("Running sanity test with population_size:", population_size, ", number_of_generations:", number_of_generations, ", crossover_probability:", crossover_probability, ", mutation_probability:", mutation_probability, ", tournament_size:", tournament_size, ", number_of_tournament:", number_of_tournament)
-                            _, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list = dbd_sanity_test(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=population_size, number_of_generations=number_of_generations, crossover_probability=crossover_probability, mutation_probability=mutation_probability, tournament_size=tournament_size, number_of_tournament=number_of_tournament)
+                            _, precision_list, recall_list, auc_roc_list, auc_pr_list, mcc_list, specificity_list, npv_list = dbd_sanity_check(pdb_id_list, templates_dict, dbd_path, pdb_parser, lha_dict, ranking_size=100, verbose=False, iteration_per_protein=1, population_size=population_size, number_of_generations=number_of_generations, crossover_probability=crossover_probability, mutation_probability=mutation_probability, tournament_size=tournament_size, number_of_tournament=number_of_tournament)
                             avg_auc_roc = np.mean(auc_roc_list)
                             print("Mean AUC-ROC:", avg_auc_roc)
                             if avg_auc_roc > optimal_auc_roc:

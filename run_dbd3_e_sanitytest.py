@@ -5,7 +5,7 @@ from utility.execute_with_elapsed_time import execute_with_elapsed_time
 from constant.directory_constant import dbd5_path, templates_path
 from constant.last_heavy_atom import lha_dict
 from constant.dbd3_dataset import dbd3_e_list
-from benchmark.dbd_sanity_test import dbd_sanity_test
+from benchmark.dbd_sanity_check import dbd_sanity_check
 
 pdb_parser = PDBParser()
 
@@ -13,7 +13,7 @@ pdb_parser = PDBParser()
 dbd3_e_templates_5a_dict = load_ppi_templates(templates_path, "dbd3_e_templates_5a.json")
 
 print("DBD3: E")
-execute_with_elapsed_time(dbd_sanity_test,
+execute_with_elapsed_time(dbd_sanity_check,
                         pdb_id_list=dbd3_e_list,
                         templates_dict=dbd3_e_templates_5a_dict,
                         dbd_path=dbd5_path,

@@ -6,7 +6,7 @@ This repository contains the implementation of GASS-PPI (Genetic Active Site Sea
 
 To run GASS-PPI on your local machine, perform all steps below:
 
-1. Download and install [Python 3.8](https://www.python.org/downloads/release/python-3816/)
+1. Download and install [Python 3.11](https://www.python.org/downloads/release/python-3110/)
 
 2. Install all required Python libraries (including [Biopython](https://biopython.org/)), by referring to the `requirements.txt`.
 For example, if you are using [pip](https://pip.pypa.io/en/stable/):
@@ -58,4 +58,4 @@ There are two main datasets used in GASS-PPI, which are:
 
 ## Credits
 
-Credits to open source tools/libraries used in this repository. This includes [MSMS](https://ssbio.readthedocs.io/en/latest/instructions/msms.html), [Python](https://www.python.org/downloads/release/python-3816/), and some available libraries (listed in `requirements.txt`), and [PyMOL](https://pymol.org/2/).
+Credits to open source tools/libraries used in this repository. This includes [MSMS](https://ssbio.readthedocs.io/en/latest/instructions/msms.html), [Python](https://www.python.org/downloads/release/python-3110/), and some available libraries (listed in `requirements.txt`), and [PyMOL](https://pymol.org/2/).
