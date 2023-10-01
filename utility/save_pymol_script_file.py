@@ -1,3 +1,4 @@
+import os
 from constant.directory_constant import repository_path, dbd5_path
 from constant.last_heavy_atom import lha_dict
 
@@ -17,6 +18,9 @@ def save_pymol_script(pdb_id, actual_interface, predicted_interface, render_dist
 
     """
     target_path = repository_path + "/pymol-script/" + pdb_id + ".pml"
+    # Make sure that all directory within the target_path exists
+    # os.makedirs will recursively make the directory if it doesn't exist
+    os.makedirs(os.path.dirname(target_path), exist_ok=True)
 
     # Initialise the PyMOL script buffer
     pymol_script = "bg_color white;\n"

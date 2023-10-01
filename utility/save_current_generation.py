@@ -1,3 +1,4 @@
+import os
 from constant.directory_constant import repository_path
 
 def save_current_generation(file_name, current_population_list):
@@ -13,6 +14,9 @@ def save_current_generation(file_name, current_population_list):
 
     """
     target_path = repository_path + "/development-logs/" + file_name + ".log"
+    # Make sure that all directory within the target_path exists
+    # os.makedirs will recursively make the directory if it doesn't exist
+    os.makedirs(os.path.dirname(target_path), exist_ok=True)
     buffer = ""
     ranking = 1
     for individual, fitness_score in current_population_list:
