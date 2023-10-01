@@ -6,7 +6,7 @@ from constant.directory_constant import dbd5_path, templates_path
 from constant.last_heavy_atom import lha_dict
 from constant.dbd3_dataset import dbd3_all_list
 from constant.dbd5_dataset import dbd5_all_list
-from benchmark.dbd_sanity_test import dbd_sanity_test
+from benchmark.dbd_sanity_check import dbd_sanity_check
 
 pdb_parser = PDBParser()
 
@@ -37,7 +37,7 @@ dbd3_all_templates_5a_dict = {**dbd3_e_templates_5a_dict, **dbd3_a_templates_5a_
 
 
 print("DBD3: All Complexes")
-execute_with_elapsed_time(dbd_sanity_test,
+execute_with_elapsed_time(dbd_sanity_check,
                         pdb_id_list=dbd3_all_list,
                         templates_dict=dbd3_all_templates_5a_dict,
                         dbd_path=dbd5_path,
@@ -54,7 +54,7 @@ execute_with_elapsed_time(dbd_sanity_test,
                         number_of_tournament=50)
 
 print("DBD5: All Complexes")
-execute_with_elapsed_time(dbd_sanity_test,
+execute_with_elapsed_time(dbd_sanity_check,
                         pdb_id_list=dbd5_all_list,
                         templates_dict=dbd5_all_templates_5a_dict,
                         dbd_path=dbd5_path,

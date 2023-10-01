@@ -1,3 +1,4 @@
+import os
 import json
 
 def save_ppi_templates(ppi_templates_dict, save_directory_path, file_name):
@@ -15,6 +16,10 @@ def save_ppi_templates(ppi_templates_dict, save_directory_path, file_name):
     """
     # Convert the ppi_templates_dict into JSON-friendly dictionary
     json_friendly_dict = { pdb_id: [residue.__dict__ for residue in residue_list] for pdb_id, residue_list in ppi_templates_dict.items() }
+
+    # Make sure that all directory within the save_directory_path exists
+    # os.makedirs will recursively make the directory if it doesn't exist
+    os.makedirs(os.path.dirname(save_directory_path), exist_ok=True)
 
     # Save the file
     with open(save_directory_path + file_name, "w") as fp:
